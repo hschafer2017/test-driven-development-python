@@ -14,12 +14,17 @@ def getChange(amount, coins = eu):
     
     change = []
     for coin in denomination:
-        print('Key' + str(coin))
-        if coins[coin] > 0:
-            print('inside if ' + str(coin))
-            while amount >= coin:
+        # print('Key' + str(coin))
+            # You can get to the value in a dictionary using the square brackets. This if statement will make the function skip over the key if the value is zero. 
+            while amount >= coin and coins[coin] > 0:
                 amount -= coin
+                coins[coin] = coins[coin] - 1 
                 change.append(coin)
+                
+    if amount != 0: 
+        return "No Change"
+        
+    print(coins[coin])    
     return change
     
 
@@ -32,6 +37,8 @@ tests_are_equal(getChange(5), [5])
 tests_are_equal(getChange(6), [5,1])
 tests_are_equal(getChange(7), [5,2])
 tests_are_equal(getChange(55, { 50: 0, 20:20, 10: 20, 5: 20, 2: 20}), [20, 20, 10, 5])
+tests_are_equal(getChange(25, { 20: 0, 10:20, 5: 20, 2: 20}), [10, 10, 5])
+tests_are_equal(getChange(50, { 20: 1, 10:0, 5: 1, 2: 1}), "No Change")
 
 
 
